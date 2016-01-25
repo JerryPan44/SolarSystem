@@ -36,24 +36,15 @@ void Render()
 														 // and the depth buffer
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+
+	//glTranslatef(0, 0, -50);
+	//glTranslatef(0, 0, -50);
+	glColor3f(0.8, 0.7, 0);                           // Set drawing colour
 	
- 
-  //glTranslatef(0,0,-100);
-  //glTranslatef(tx,0.0,0.0);
-  //glRotatef(rotx,1,0,0);
-
-  //
- 
-  ////(01)             
-  ////glColor3f(0.3, 0.2, 0.9);                            // Set drawing colour
-  ////DisplayModel(md);
-
-  ////(02)
-  //glColor3f(0.8, 0.1, 0.1);
-  //glTranslatef(-20.0,0.0,0.0);
-  //keimeno("Dokimastiko keimeno",0.05f);
-
-  ////(03)     
+	DisplayModel(md);
+	
+   
 
 	GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
 	GLfloat mat_ambient[] = { 0.7, 0.7, 0.7, 1.0 };
@@ -63,28 +54,17 @@ void Render()
 	GLfloat no_shininess[] = { 0.0 };
 	GLfloat low_shininess[] = { 5.0 };
 	GLfloat high_shininess[] = { 100.0 };
-	GLfloat mat_emission[] = { 0.3, 0.2, 0.2, 0.0 };
+	GLfloat mat_emission[] = { 0.8, 0.7, 0.2, 0.0 };
 
 
-
-	glTranslatef(0, 0, -50);
-
-	glTranslatef(0, 0, -50);
-
-
-
-	//(02)             //when enabling depth test this is rendered first
-	glColor3f(0.3, 0.2, 0.9);                            // Set drawing colour
-														 //glColor4f(0.3, 0.2, 0.9, 0.75);					   // Set drawing colour and transparency
-  glColor3f(0.8, 0.7, 0);
   glPushMatrix();
   glTranslatef(-1.25, 3.0, 0.0);
-  glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
-  glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-  glMaterialfv(GL_FRONT, GL_SHININESS, low_shininess);
-  glMaterialfv(GL_FRONT, GL_EMISSION, no_mat);
-  glutSolidSphere(20.0, 20, 16);
+  //glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
+  //glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+  //glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+  //glMaterialfv(GL_FRONT, GL_SHININESS, low_shininess);
+  glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+  //glutSolidSphere(20.0, 20, 16);
   glPopMatrix();
 
 
@@ -257,6 +237,8 @@ void DisplayModel(model md)
 {
 
 	glPushMatrix();
+	//glScalef(0.005, 0.005, 0.005);
+	glTranslatef(0, 0, -1157);
 	glBegin(GL_TRIANGLES);
 
 	for (int i = 0; i < md.faces; i++)
