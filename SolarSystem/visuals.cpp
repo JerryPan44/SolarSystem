@@ -3,18 +3,24 @@
 #include <math.h>
 #include <iostream>
 #include <fstream>
-
 #include "gl/glut.h"   // - An interface and windows management library
 #include "visuals.h"   // Header file for our OpenGL functions
 
 model md;
 static float tx = 0.0;
-static float rotx = 0.0;
+static float rotationX = 0.0, rotationY = 0.0;
 static bool animate = false;
 static float red = 1.0;
 static float green = 0.0;
 static float blue = 0.0;
-
+static float angle = 0.0;
+// actual vector representing the camera's direction
+static float lx = 0.0f, lz = -1.0f;
+// XZ position of the camera
+static bool stopRotating = true;
+static float x = 0.0f, z = 60.0f;
+static float transparency = 0.2;
+static bool ascendingPhase = true;
 using namespace std;
 
 void keimeno(const char *str,float size)
@@ -28,87 +34,184 @@ void keimeno(const char *str,float size)
 	glPopMatrix();
 
 }
+const GLfloat light_ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+const GLfloat light_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+const GLfloat light_position[] = { 0.0f ,0.0f, 17.0f, 1.0f };
+void drawStar() {
 
+//white color
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_POINTS);
+
+	glVertex3f(-10.0f, -3.0f, 0.0f);
+	glVertex3f(-12.0f, -3.0f, 0.0f);
+	glVertex3f(-14.0f, -3.0f, 0.0f);
+
+
+
+glEnd();
+
+
+}
+void drawSolar() {
+
+	//for light
+}
 void Render()
 {    
-  ////CLEARS FRAME BUFFER ie COLOR BUFFER& DEPTH BUFFER (1.0)
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clean up the colour of the window
-														 // and the depth buffer
-	glMatrixMode(GL_MODELVIEW);
+	static int yPos[] = { 35,	91,	62,	56	,43,
+		35,	65,	80,	12,	99,
+		34,	93,	61,	83,	34,
+		35,	100,	78,	61,	41,
+		78,	61,	39,	4	,69,
+		72,	75,	24	,1,	33,
+		99,	6,	83,	49,	2,
+		53,	41,	36,	34,	25,
+		39,	19,	27,	32,	59,
+		33,	69,	75,	65,	39,
+		38,	80,	64,	69,	63,
+		79,	68,	95,	28,	86,
+		15,	19,	4	,51,	95,
+		67,	30	,67	,30	,49,
+		3,	16	,67	,27,	63,
+		40	,15	,29	,4,	55,
+		61	,68	,77	,61	,8
+		,26	,21	,44	,69	,29
+		,85	,41	,49	,17	,9,
+		18	,76	,25	,53	,71 };
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// Reset transformations
 	glLoadIdentity();
+	// Set the camera
+	gluLookAt(x, 1.0f, z,
+		x + lx, 1.0f, z + lz,
+		0.0f, 1.0f, 0.0f);
+	glRotatef(rotationX, 1.0f, 0.0f, 0.0f);
+	glRotatef(rotationY, 0.0f, 1.0f, 0.0f);
+	// Draw 1 Solar
+			glPushMatrix();
+			glRotatef(angle, 0.0f, 1.0f, 0.0f);
+			glEnable(GL_LIGHT0);
+			glEnable(GL_NORMALIZE);
+			glEnable(GL_COLOR_MATERIAL);
+			glEnable(GL_LIGHTING);
+			glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+			glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+			glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+			glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+			// Draw Sun : color yellow
+			glColor3f(1.0f, 1.0f, 0.0f);
+			glTranslatef(0.0f, 0.75f, 0.0f);
+			glutSolidSphere(3.0f, 100, 100);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glColor4f(3.0f, 1.0f, 0.0f, transparency);
+			if (transparency >= 1.0f)
+				ascendingPhase = false;
+			if(transparency <= 0)
+				ascendingPhase = true;
+			if (ascendingPhase)
+				transparency += 0.02;
+			else
+				transparency -= 0.02;
+			glutSolidSphere(4.0f, 100, 100);
+			//Mercury :  Black Gray
+			glColor3f(0.9f, 0.9f, 0.9f);
+			glTranslatef(-14, 0.60, 0.0f);
+			glutSolidSphere(0.75f, 60, 60);
+			//Venus : drak yellow
+			glColor3f(0.9f, 0.7f, 0.0f);
+			glTranslatef(7, 0.0f, 4.0f);
+			glutSolidSphere(0.60f, 40, 40);
+			//Earth : blue
+			glColor3f(0.0f, 0.5f, 1.0f);
+			glTranslatef(17, 0.0f, 8.0f);
+			glutSolidSphere(1.5f, 40, 40);
 
+			glColor3f(0.6f, 0.5f, 1.0f);
+			glTranslatef(5, 0.0f, 6.0f);
+			glutSolidSphere(1.5f, 40, 40);
 
-	//glTranslatef(0, 0, -50);
-	//glTranslatef(0, 0, -50);
-	glColor3f(0.8, 0.7, 0);                           // Set drawing colour
-	
-	DisplayModel(md);
-	
-   
+			glEnd();
+			if(stopRotating)
+				angle += 0.1f;
+			glPopMatrix();
 
-	GLfloat no_mat[] = { 0.0, 0.0, 0.0, 1.0 };
-	GLfloat mat_ambient[] = { 0.7, 0.7, 0.7, 1.0 };
-	GLfloat mat_ambient_color[] = { 0.8, 0.8, 0.2, 1.0 };
-	GLfloat mat_diffuse[] = { 0.1, 0.5, 0.8, 1.0 };
-	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat no_shininess[] = { 0.0 };
-	GLfloat low_shininess[] = { 5.0 };
-	GLfloat high_shininess[] = { 100.0 };
-	GLfloat mat_emission[] = { 0.8, 0.7, 0.2, 0.0 };
+	// for Star
+	for (int i = 0; i < 10; i++)
+		for (int j = 0; j < 10; j++) {
+			glPushMatrix();
+			glTranslatef(i*10.0, yPos[i*j + j]/6, j * 10.0);
+			drawStar();
+			glPopMatrix();
+		}
 
-
-  glPushMatrix();
-  glTranslatef(-1.25, 3.0, 0.0);
-  //glMaterialfv(GL_FRONT, GL_AMBIENT, no_mat);
-  //glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-  //glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-  //glMaterialfv(GL_FRONT, GL_SHININESS, low_shininess);
-  glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-  //glutSolidSphere(20.0, 20, 16);
-  glPopMatrix();
-
-
-	glutSwapBuffers();             // All drawing commands applied to the 
-								   // hidden buffer, so now, bring forward
-								   // the hidden buffer and hide the visible one
+	glutSwapBuffers();
 
 }
 
 //-----------------------------------------------------------
 
 void Resize(int w, int h)
-{ 
-  // define the visible area of the window ( in pixels )
-  if (h==0) h=1;
-  glViewport(0,0,w,h); 
+{
+	if (h == 0)
+		h = 1;
+	float ratio = w * 1.0 / h;
 
-  // Setup viewing volume
+	// Use the Projection Matrix
+	glMatrixMode(GL_PROJECTION);
 
-  glMatrixMode(GL_PROJECTION); 
-  glLoadIdentity();
+	// Reset Matrix
+	glLoadIdentity();
+
+	// Set the viewport to be the entire window
+	glViewport(0, 0, w, h);
+
+	// Set the correct perspective.
+	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
+
+	// Get Back to the Modelview
+	glMatrixMode(GL_MODELVIEW);
+  //// define the visible area of the window ( in pixels )
+  //if (h==0) h=1;
+  //glViewport(0,0,w,h); 
+
+  //// Setup viewing volume
+
+  //glMatrixMode(GL_PROJECTION); 
+  //glLoadIdentity();
  
-  gluPerspective(60.0, (float)w/(float)h, 1.0, 500.0);
+  //gluPerspective(60.0, (float)w/(float)h, 1.0, 500.0);
 }
 
 void Idle()
 {
-	if(animate)
-		rotx+=0.4;
+
 
 	glutPostRedisplay();
 }
 
-void Keyboard(unsigned char key,int x,int y)
+void Keyboard(int key,int x,int y)
 {
-	switch(key)
-	{
-	case 'q' : exit(0);
+	float fraction = 0.1f;
+
+	switch (key) {
+	case GLUT_KEY_LEFT:
+		rotationY -= 1.0f;
 		break;
-	case 'a' : tx-=0.5f;
+	case GLUT_KEY_RIGHT:
+		rotationY += 1.0f;
 		break;
-	case 'd' : tx+=0.5f;
+	case GLUT_KEY_UP:
+		rotationX -= 1.0f;
 		break;
-	default : break;
+	case GLUT_KEY_DOWN:
+		rotationX += 1.0f;
+		break;
+	case GLUT_KEY_F1:
+			stopRotating = !stopRotating;
+			break;
 	}
 
 	glutPostRedisplay();
@@ -249,6 +352,7 @@ void DisplayModel(model md)
 	}
 
 	glEnd();
+	angle += 0.1f;
 	glPopMatrix();
 
 }

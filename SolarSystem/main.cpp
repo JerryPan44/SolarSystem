@@ -38,8 +38,10 @@ int main(int argc, char* argv[])
   
   // Define the main window size and initial position 
   // ( upper left corner, boundaries included )
-  glutInitWindowSize(480,480);
-  glutInitWindowPosition(50,50);
+	glutInitWindowPosition(100,100);
+	glutInitWindowSize(320,320);
+  //glutInitWindowSize(480,480);
+  //glutInitWindowPosition(50,50);
   
   // Create and label the main window
   glutCreateWindow("Course5");
@@ -53,7 +55,7 @@ int main(int argc, char* argv[])
   glutDisplayFunc(Render);
   glutReshapeFunc(Resize);
   glutIdleFunc(Idle);
-  glutKeyboardFunc(Keyboard);
+  glutSpecialFunc(Keyboard);
   glutMouseFunc(Mouse);
 
   glutCreateMenu(MenuSelect);

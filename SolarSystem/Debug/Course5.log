@@ -1,10 +1,6 @@
 ﻿  visuals.cpp
-c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(26): warning C4018: '<': signed/unsigned mismatch
-c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(50): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(51): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(52): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(57): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(147): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
-c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(148): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(32): warning C4018: '<': signed/unsigned mismatch
+c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(250): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+c:\users\jerry\desktop\grafika\ergasia 2015\2016_solarsystem\solarsystem\visuals.cpp(251): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
 main.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
   Course5.vcxproj -> C:\Users\Jerry\Desktop\Grafika\Ergasia 2015\2016_SolarSystem\SolarSystem\Debug\Course5.exe
