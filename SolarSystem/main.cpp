@@ -1,23 +1,6 @@
-//--------------------------------------------------//
-//													//	
-//    Learning OpenGL: Εισαγωγικά Μαθήματα OpenGL   //
-//													//
-//    Πλατφόρμα ανάπτυξης παραδειγμάτων				//
-//													//
-//													//
-//		Μάθημα 5ο									//
-//--------------------------------------------------//
-
-
 #include <stdio.h>     // - Just for some ASCII messages
 #include "gl/glut.h"   // - An interface and windows 
-                       //   management library
 #include "visuals.h"   // Header file for our OpenGL functions
-
-
-
-////////////////// State Variables ////////////////////////
-
 
 /////////////// Main Program ///////////////////////////
 
@@ -38,13 +21,11 @@ int main(int argc, char* argv[])
   
   // Define the main window size and initial position 
   // ( upper left corner, boundaries included )
-	glutInitWindowPosition(100,100);
-	glutInitWindowSize(320,320);
-  //glutInitWindowSize(480,480);
-  //glutInitWindowPosition(50,50);
+  glutInitWindowSize(480,480);
+  glutInitWindowPosition(50,50);
   
   // Create and label the main window
-  glutCreateWindow("Course5");
+  glutCreateWindow("Solar Systemara");
   
   // Configure various properties of the OpenGL rendering context
   Setup();
@@ -56,17 +37,6 @@ int main(int argc, char* argv[])
   glutReshapeFunc(Resize);
   glutIdleFunc(Idle);
   glutSpecialFunc(Keyboard);
-  glutMouseFunc(Mouse);
-
-  glutCreateMenu(MenuSelect);
-  glutAddMenuEntry("Red",RED);
-  glutAddMenuEntry("Blue",BLUE);
-  glutAddMenuEntry("Green",GREEN);
-  glutAddMenuEntry("White",WHITE);
-	
-  // attach the menu to the right button
-  glutAttachMenu(GLUT_RIGHT_BUTTON);
-
  
   //Enter main event handling loop
   glutMainLoop();

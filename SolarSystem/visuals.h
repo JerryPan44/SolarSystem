@@ -17,9 +17,8 @@ struct face
 
 struct model
 {
-	point obj_points[9122];
-	face obj_faces[1824];
-	point obj_vertice_normals[9124];
+	point * obj_points;
+	face * obj_faces;
 	int verticeNormals;
 	int vertices;
 	int faces;
